@@ -3,15 +3,17 @@ import { useContext } from 'react';
 //import PropTypes from 'prop-types'
 import FeedbackItem from "./FeedbackItem";
 import Feedbackcontext from '../context/Feedbackcontext';
-
+import { FaSpinner } from 'react-icons/fa';
 //function FeedbackList({feedback, handleDelete}){
 
 function FeedbackList(){
-  const {feedback} = useContext(Feedbackcontext)
-  if(!feedback || feedback.length === 0){
+  const {feedback, isLoading} = useContext(Feedbackcontext)
+  if(!isLoading && !feedback || feedback.length === 0){
     return <p>No feedback Yet!</p>
   }
-  return (
+  return isLoading ? (
+    <FaSpinner />
+    ) : (
     <div className="feedback-list">
       <AnimatePresence>
         {feedback.map((item) => (
